@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+x-xander-env: &xander-env /mnt/data/superset/env
 x-superset-image: &superset-image apache/superset:1.5.2
 x-superset-depends-on: &superset-depends-on
   - db
@@ -21,7 +22,7 @@ x-superset-depends-on: &superset-depends-on
 x-superset-volumes: &superset-volumes
   # /app/pythonpath_docker will be appended to the PYTHONPATH in the final container
   - /mnt/git/apache/superset/docker:/app/docker
-  - superset_home:/app/superset_home
+  - /mnt/data/superset/home:/app/superset_home
 
 version: "3.7"
 services:
@@ -33,7 +34,7 @@ services:
       - redis:/data
 
   db:
-    env_file: docker/.env-non-dev
+    env_file: *xander-env
     image: postgres:10
     container_name: superset_db
     restart: unless-stopped
@@ -41,7 +42,7 @@ services:
       - db_home:/var/lib/postgresql/data
 
   superset:
-    env_file: docker/.env-non-dev
+    env_file: *xander-env
     image: *superset-image
     container_name: superset_app
     command: ["/app/docker/docker-bootstrap.sh", "app-gunicorn"]
@@ -56,7 +57,7 @@ services:
     image: *superset-image
     container_name: superset_init
     command: ["/app/docker/docker-init.sh"]
-    env_file: docker/.env-non-dev
+    env_file: *xander-env
     depends_on: *superset-depends-on
     user: "root"
     volumes: *superset-volumes
@@ -65,7 +66,7 @@ services:
     image: *superset-image
     container_name: superset_worker
     command: ["/app/docker/docker-bootstrap.sh", "worker"]
-    env_file: docker/.env-non-dev
+    env_file: *xander-env
     restart: unless-stopped
     depends_on: *superset-depends-on
     user: "root"
@@ -75,15 +76,13 @@ services:
     image: *superset-image
     container_name: superset_worker_beat
     command: ["/app/docker/docker-bootstrap.sh", "beat"]
-    env_file: docker/.env-non-dev
+    env_file: *xander-env
     restart: unless-stopped
     depends_on: *superset-depends-on
     user: "root"
     volumes: *superset-volumes
 
 volumes:
-  superset_home:
-    external: false
   db_home:
     external: false
   redis:
