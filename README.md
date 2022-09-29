@@ -21,6 +21,3 @@ A scaled down homelab with significant less power consumption.
 | Slimmelezer+ | ESP8266 | - | - |
 | Amazon Echo 4th gen | - | - | - |
 
-
-* Laptop (Intel Celeron 1005M (2x 1.9Ghz) + 4GiB memory)
-* Memory: 4GiB
