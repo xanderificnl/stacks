@@ -12,6 +12,15 @@ A scaled down homelab with significant less power consumption.
 | Homeassistant | lscr.io/linuxserver/homeassistant:latest |
 | [Superset](./superset/) | apache/superset:1.5.2 |
 
+### Pre-requisites for my own setup.
+
+```bash
+mkdir -p /mnt/git/xanderificnl
+git clone https://github.com/xanderificnl/stacks /mnt/git/xanderificnl/stacks
+
+apk add git
+```
+
 ## Hardware
 
 | Device | Hardware | OS | Architecture |
@@ -20,4 +29,3 @@ A scaled down homelab with significant less power consumption.
 | Router | Mikrotik Hap Ac³ | RouterOS | arm |
 | Slimmelezer+ | ESP8266 | - | - |
 | Amazon Echo 4th gen | - | - | - |
-
