@@ -4,12 +4,13 @@ A scaled down homelab with significant less power consumption.
 
 ## Software
 
-* Alpine Linux (v3 - 64 bit)
-* Docker 
-* [Superset](./superset/)
-* Portainer
-* Homeassistant
-* PostgreSQL
+| name | version / image |
+| -- | -- |
+| Alpine Linux | v3 |
+| Docker | 20.10.18 |
+| Portainer | portainer/portainer-ce:2.15.1 |
+| Homeassistant | lscr.io/linuxserver/homeassistant:latest |
+| [Superset](./superset/) | apache/superset:1.5.2 |
 
 ## Hardware
 
