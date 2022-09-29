@@ -1,4 +1,5 @@
 #!/bin/ash
+set -x
 source ../.env
 
 VERSION="$(grep x-superset-image ./docker-compose.yml | cut -d':' -f3)"
