@@ -1,10 +1,11 @@
 #!/bin/ash
-set -x
-BASE_DIR="/mnt/git/apache"
+source ../.env
 
-mkdir -p "$BASE_DIR"
+VERSION="$(grep x-superset-image ./docker-compose.yml | cut -d':' -f3)"
+_STORE="$DATA_STORE/superset"
+_GIT="$GIT_STORE/apache/superset"
 
-command -v git || exit 1
+git clone --branch "$VERSION" https://github.com/apache/superset "$_GIT"
 
-git clone https://github.com/apache/superset "$BASE_DIR/superset"
+sed "s/_PASSWORD=.*/_PASSWORD=$(openssl rand -base64 32)/g" $_GIT/docker/.env-non-dev | tee $_STORE/env
 
